@@ -97,18 +97,23 @@ function isStartFirst(event1, event2) {
 
 function naiveRucksack (capacity, items) {
   var solution = []
+  
   items.sort(function (a, b) {
-    return (a[1]*1.0/a[0] < b[1]*1.0/b[0])
+    return (a[1] * 1.0 / a[0] < b[1] * 1.0 / b[0])
   });
-  console.log(items);
+  
   for(var i =0; i < items.length && capacity > 0; ++i) {
-    if ( capacity > items[i][0] ) {
-      capacity = capacity - items[i][0];
+    var weight = items[i][0];
+    var value = items[i][1];
+    
+    if (capacity > weight) {
+      capacity = capacity - weight;
       solution.push([i, 100]);
     } else {
-      solution.push([i, parseInt(capacity/items[i][0]*100)]);
+      solution.push([i, parseInt(capacity / weight * 100)]);
       capacity = 0;
     }
   }
+  
   return solution;
 }
